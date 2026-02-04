@@ -49,16 +49,6 @@ export const SlideCover = ({ onNavigateToPlans }: SlideCoverProps) => {
         ))}
       </ul>
 
-      {/* CTA Button */}
-      <button
-        onClick={onNavigateToPlans}
-        className="mt-4 inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-primary hover:bg-primary/90 
-          text-primary-foreground text-lg font-semibold transition-all duration-200 
-          hover:scale-105 glow-emerald animate-pulse-glow"
-      >
-        Ver Proposta Completa
-        <ArrowRight className="w-5 h-5" />
-      </button>
     </div>
   );
 };
