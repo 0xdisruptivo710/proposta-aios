@@ -1,25 +1,7 @@
-import { DollarSign, Star, Zap, Sparkles, RefreshCw, Check } from "lucide-react";
+import { DollarSign, Star, Zap, Sparkles, RefreshCw, Check, TrendingUp } from "lucide-react";
 
 export const SlideComparison = () => {
   const proposals = [
-    {
-      label: "Proposta 1 - Recomendada",
-      title: "Reestruturacao Completa",
-      color: "primary",
-      badge: "Mais Completa",
-      badgeIcon: Star,
-      implementation: "R$ 82.000",
-      recurrence: "R$ 3.200/mes",
-      recommended: true,
-      highlights: [
-        "Gateway de pagamento completo",
-        "AIOS CRM + Automacao com IA",
-        "Dashboard completo 360°",
-        "Fluxo unico e integrado",
-        "Autonomia total sem APIs externas",
-        "Escalabilidade ilimitada",
-      ],
-    },
     {
       label: "Proposta 2",
       title: "Integracao Inteligente",
@@ -28,7 +10,7 @@ export const SlideComparison = () => {
       badgeIcon: Zap,
       implementation: "R$ 34.000",
       recurrence: "R$ 2.800/mes",
-      recommended: false,
+      featured: false,
       highlights: [
         "Mantem o Gestao PRO",
         "AIOS CRM + Automacao",
@@ -38,20 +20,39 @@ export const SlideComparison = () => {
       ],
     },
     {
-      label: "Proposta 3",
+      label: "Proposta 3 - Melhor Para Comecar",
       title: "Automacao de Atendimento",
       color: "green",
       badge: "Entrada Focada",
       badgeIcon: Sparkles,
       implementation: "R$ 22.000",
       recurrence: "R$ 2.500/mes",
-      recommended: false,
+      featured: true,
       highlights: [
         "Chatbot IA 24/7",
         "Distribuicao automatica de leads",
         "Centralizacao do WhatsApp",
         "Dashboard de acompanhamento",
         "Implementacao rapida",
+        "Evolui para qualquer proposta",
+      ],
+    },
+    {
+      label: "Proposta 1 - Mais Completa",
+      title: "Reestruturacao Completa",
+      color: "primary",
+      badge: "Solucao Total",
+      badgeIcon: Star,
+      implementation: "R$ 82.000",
+      recurrence: "R$ 3.200/mes",
+      featured: false,
+      highlights: [
+        "Gateway de pagamento completo",
+        "AIOS CRM + Automacao com IA",
+        "Dashboard completo 360°",
+        "Fluxo unico e integrado",
+        "Autonomia total sem APIs externas",
+        "Escalabilidade ilimitada",
       ],
     },
   ];
@@ -66,7 +67,6 @@ export const SlideComparison = () => {
           implBg: "bg-primary/10",
           implText: "text-primary",
           recBg: "bg-primary/10 border-primary/20",
-          ring: "ring-2 ring-primary/30",
           iconText: "text-primary",
           checkColor: "text-primary",
         };
@@ -78,7 +78,6 @@ export const SlideComparison = () => {
           implBg: "bg-blue-500/10",
           implText: "text-blue-300",
           recBg: "bg-blue-500/10 border-blue-500/20",
-          ring: "",
           iconText: "text-blue-400",
           checkColor: "text-blue-400",
         };
@@ -90,7 +89,6 @@ export const SlideComparison = () => {
           implBg: "bg-green-500/10",
           implText: "text-green-300",
           recBg: "bg-green-500/10 border-green-500/20",
-          ring: "",
           iconText: "text-green-400",
           checkColor: "text-green-400",
         };
@@ -117,21 +115,27 @@ export const SlideComparison = () => {
         </p>
       </div>
 
-      {/* Pricing Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto w-full">
+      {/* Pricing Cards - Center card (Proposta 3) is visually elevated */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto w-full items-start">
         {proposals.map((proposal, index) => {
           const colors = getColorClasses(proposal.color);
           const BadgeIcon = proposal.badgeIcon;
+          const isFeatured = proposal.featured;
           return (
             <div
               key={index}
-              className={`relative bg-gradient-to-br ${colors.bg} border ${colors.border} rounded-2xl p-5 flex flex-col animate-slide-in-up transition-all duration-300 hover:scale-[1.02] ${colors.ring}`}
+              className={`relative bg-gradient-to-br ${colors.bg} border ${colors.border} rounded-2xl p-5 flex flex-col animate-slide-in-up transition-all duration-300 hover:scale-[1.02] ${
+                isFeatured
+                  ? "ring-2 ring-green-500/40 md:-mt-2 md:mb-0 md:scale-[1.03] shadow-lg shadow-green-500/10"
+                  : "md:mt-2 opacity-90"
+              }`}
               style={{ animationDelay: `${index * 120}ms` }}
             >
-              {/* Recommended pulse */}
-              {proposal.recommended && (
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider animate-pulse">
-                  Recomendada
+              {/* Featured tag */}
+              {isFeatured && (
+                <div className="absolute -top-2.5 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-green-500 text-white text-[10px] font-bold uppercase tracking-wider flex items-center gap-1">
+                  <TrendingUp className="w-3 h-3" />
+                  Melhor para comecar
                 </div>
               )}
 
@@ -143,7 +147,9 @@ export const SlideComparison = () => {
 
               {/* Title */}
               <p className="text-xs text-muted-foreground mb-1">{proposal.label}</p>
-              <h3 className="text-lg font-bold text-foreground mb-3">{proposal.title}</h3>
+              <h3 className={`text-lg font-bold mb-3 ${isFeatured ? "text-green-300" : "text-foreground"}`}>
+                {proposal.title}
+              </h3>
 
               {/* Pricing */}
               <div className="space-y-2 mb-4">
@@ -175,12 +181,15 @@ export const SlideComparison = () => {
       </div>
 
       {/* Bottom Note */}
-      <div className="text-center">
+      <div className="text-center space-y-2">
         <p className="text-sm text-muted-foreground">
           Todas as propostas incluem{" "}
           <span className="text-primary font-semibold">suporte dedicado</span>,{" "}
           <span className="text-primary font-semibold">treinamento da equipe</span> e{" "}
           <span className="text-primary font-semibold">acompanhamento na implementacao</span>
+        </p>
+        <p className="text-xs text-muted-foreground/70">
+          Comece pela Proposta 3 e evolua para qualquer outra quando fizer sentido para o negocio
         </p>
       </div>
     </div>
