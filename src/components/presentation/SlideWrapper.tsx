@@ -30,8 +30,8 @@ export const SlideWrapper = ({
 
         <SlideHeader currentSlide={currentSlide} totalSlides={totalSlides} />
 
-        <main className="flex-1 px-8 md:px-16 lg:px-20 pb-4 relative z-10 overflow-y-auto">
-          <div className="max-w-6xl mx-auto h-full flex flex-col justify-center py-8">
+        <main className="flex-1 px-6 md:px-12 lg:px-16 pb-2 relative z-10 overflow-y-auto">
+          <div className="max-w-6xl mx-auto h-full flex flex-col justify-center py-4">
             {children}
           </div>
         </main>
